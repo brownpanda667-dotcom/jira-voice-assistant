@@ -1,0 +1,40 @@
+@startuml
+
+!theme plain
+autonumber
+
+actor "User" as User
+participant "jira-voice-assistant\n(Python App)" as App
+participant "OpenAI Whisper\n(STT API)" as STT
+participant "OpenAI GPT\n(LLM Engine)" as LLM
+participant "Jira Cloud\n(REST API)" as Jira
+
+== 1. Audio Capture Phase ==
+User -> App : Speaks Command\n("Create bug for login crash")
+activate App
+App -> App : Capture Audio Stream\n(PyAudio)
+App -> App : Save as temporary .wav file
+
+== 2. Transcription Phase ==
+App -> STT : POST /v1/audio/transcriptions\n(audio_file)
+activate STT
+STT --> App : Return Raw Text String\n"Create bug for login crash"
+deactivate STT
+
+== 3. Extraction Phase (NLU) ==
+App -> LLM : POST /v1/chat/completions\n(Text + JSON Schema Prompt)
+activate LLM
+LLM --> App : Return Structured JSON\n{"action": "create", "summary": "Login crash"...}
+deactivate LLM
+
+== 4. Execution Phase ==
+App -> App : Parse JSON & Validate Fields
+App -> Jira : POST /rest/api/3/issue\n(JSON Payload)
+activate Jira
+Jira --> App : HTTP 201 Created\n{key: "PROJ-101", id: "10001"}
+deactivate Jira
+
+App --> User : Print/Speak Confirmation\n"Ticket PROJ-101 created successfully."
+deactivate App
+
+@enduml

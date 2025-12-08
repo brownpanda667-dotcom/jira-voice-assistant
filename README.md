@@ -19,3 +19,6 @@ initially.
   structured JSON.
 - J**ira Python Library:** The "Hands"—wraps the Jira REST API to authenticate and execute commands (Create, Update,
   Delete).
+
+## Sequence Diagram embed png image here
+![Sequence Diagram](diagrams/sequence-diagram.png)
