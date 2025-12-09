@@ -14,10 +14,11 @@ initially.
 ## Key Tools & Tech Stack
 
 - **Python:** Primary programming language.
-- **SpeechRecognition / PyAudio:** The "Ears" of the system—handles microphone input and captures audio.
+- **Frameworks:** Langchain.
+- **SpeechRecognition / PyAudio / Sounddevice:** The "Ears" of the system—handles microphone input and captures audio.
 - **OpenAI API:** The "Brain"—performs Speech-to-Text (Whisper) and extracts Intent/Entities (GPT-4o/3.5) to generate
   structured JSON.
-- J**ira Python Library:** The "Hands"—wraps the Jira REST API to authenticate and execute commands (Create, Update,
+- **Jira Python Library:** The "Hands"—wraps the Jira REST API to authenticate and execute commands (Create, Update,
   Delete).
 
 ## Sequence Diagram embed png image here
